@@ -299,9 +299,7 @@ class TestIsomorphic(unittest.TestCase):
     def test_graph_vf2_number_of_valid_mappings(self):
         graph = retworkx.generators.mesh_graph(3)
         mapping = retworkx.graph_vf2_mapping(graph, graph, id_order=True)
-        total = 0
-        for _ in mapping:
-            total += 1
+        total = sum(1 for _ in mapping)
         self.assertEqual(total, 6)
 
     def test_empty_graph_vf2_mapping(self):

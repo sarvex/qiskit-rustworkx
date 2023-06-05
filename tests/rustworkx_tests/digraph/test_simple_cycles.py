@@ -53,16 +53,13 @@ class TestSimpleCycles(unittest.TestCase):
                 graph = rustworkx.PyDiGraph()
                 edge_list = []
                 for n in range(2, k + 2):
-                    edge_list.append((1, n))
-                    edge_list.append((n, k + 2))
+                    edge_list.extend(((1, n), (n, k + 2)))
                 edge_list.append((2 * k + 1, 1))
                 for n in range(k + 2, 2 * k + 2):
-                    edge_list.append((n, 2 * k + 2))
-                    edge_list.append((n, n + 1))
+                    edge_list.extend(((n, 2 * k + 2), (n, n + 1)))
                 edge_list.append((2 * k + 3, k + 2))
                 for n in range(2 * k + 3, 3 * k + 3):
-                    edge_list.append((2 * k + 2, n))
-                    edge_list.append((n, 3 * k + 3))
+                    edge_list.extend(((2 * k + 2, n), (n, 3 * k + 3)))
                 edge_list.append((3 * k + 3, 2 * k + 2))
                 graph.extend_from_edge_list(edge_list)
                 cycles = list(rustworkx.simple_cycles(graph))

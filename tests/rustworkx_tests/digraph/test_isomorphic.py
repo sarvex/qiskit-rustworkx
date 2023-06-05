@@ -336,9 +336,7 @@ class TestIsomorphic(unittest.TestCase):
     def test_digraph_vf2_number_of_valid_mappings(self):
         graph = rustworkx.generators.directed_mesh_graph(3)
         mapping = rustworkx.digraph_vf2_mapping(graph, graph, id_order=True)
-        total = 0
-        for _ in mapping:
-            total += 1
+        total = sum(1 for _ in mapping)
         self.assertEqual(total, 6)
 
     def test_empty_digraph_vf2_mapping(self):

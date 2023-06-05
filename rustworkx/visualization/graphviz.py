@@ -164,25 +164,25 @@ def graphviz_draw(
     dot_str = graph.to_dot(node_attr_fn, edge_attr_fn, graph_attr)
     if image_type is None:
         output_format = "png"
-    else:
-        if image_type not in IMAGE_TYPES:
-            raise ValueError(
-                "The specified value for the image_type argument, "
-                f"'{image_type}' is not a valid choice. It must be one of: "
-                f"{IMAGE_TYPES}"
-            )
+    elif image_type in IMAGE_TYPES:
         output_format = image_type
 
+    else:
+        raise ValueError(
+            "The specified value for the image_type argument, "
+            f"'{image_type}' is not a valid choice. It must be one of: "
+            f"{IMAGE_TYPES}"
+        )
     if method is None:
         prog = "dot"
-    else:
-        if method not in METHODS:
-            raise ValueError(
-                f"The specified value for the method argument, '{method}' is "
-                f"not a valid choice. It must be one of: {METHODS}"
-            )
+    elif method in METHODS:
         prog = method
 
+    else:
+        raise ValueError(
+            f"The specified value for the method argument, '{method}' is "
+            f"not a valid choice. It must be one of: {METHODS}"
+        )
     if not filename:
         dot_result = subprocess.run(
             [prog, "-T", output_format],
@@ -193,8 +193,7 @@ def graphviz_draw(
             text=False,
         )
         dot_bytes_image = io.BytesIO(dot_result.stdout)
-        image = Image.open(dot_bytes_image)
-        return image
+        return Image.open(dot_bytes_image)
     else:
         subprocess.run(
             [prog, "-T", output_format, "-o", filename],

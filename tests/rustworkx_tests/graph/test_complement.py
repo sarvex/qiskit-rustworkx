@@ -28,7 +28,7 @@ class TestComplement(unittest.TestCase):
     def test_empty(self):
         N = 5
         graph = rustworkx.PyGraph()
-        graph.add_nodes_from([i for i in range(N)])
+        graph.add_nodes_from(list(range(N)))
 
         expected_graph = rustworkx.PyGraph()
         expected_graph.extend_from_edge_list([(i, j) for i in range(N) for j in range(N) if i < j])

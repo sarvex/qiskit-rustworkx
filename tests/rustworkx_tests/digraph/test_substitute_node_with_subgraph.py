@@ -55,7 +55,7 @@ class TestSubstitute(unittest.TestCase):
             2,
             in_graph,
             lambda _, __, ___: 0,
-            edge_weight_map=lambda edge: edge + "-migrated",
+            edge_weight_map=lambda edge: f"{edge}-migrated",
         )
         self.assertEqual([(0, 1), (3, 4), (5, 6), (1, 5), (5, 3)], self.graph.edge_list())
         self.assertEqual("edge-migrated", self.graph.get_edge_data(5, 6))
@@ -74,9 +74,7 @@ class TestSubstitute(unittest.TestCase):
         in_graph = rustworkx.generators.directed_star_graph(3, inward=True)
 
         def map_function(source, target, _weight):
-            if target > 2:
-                return 2
-            return 1
+            return 2 if target > 2 else 1
 
         res = graph.substitute_node_with_subgraph(0, in_graph, map_function)
         self.assertEqual({0: 5, 1: 6, 2: 7}, res)
@@ -89,9 +87,7 @@ class TestSubstitute(unittest.TestCase):
         in_graph.add_edge(1, 2, None)
 
         def map_function(source, target, _weight):
-            if target > 2:
-                return 2
-            return 1
+            return 2 if target > 2 else 1
 
         def filter_fn(node):
             return node > 0
@@ -134,10 +130,7 @@ class TestSubstitute(unittest.TestCase):
         in_graph = rustworkx.generators.directed_star_graph(5, bidirectional=True)
 
         def map_function(source, target, _weight):
-            if source != 2:
-                return 0
-            else:
-                return target
+            return 0 if source != 2 else target
 
         res = graph.substitute_node_with_subgraph(2, in_graph, map_function)
         expected_node_map = {0: 5, 1: 6, 2: 7, 3: 8, 4: 9}

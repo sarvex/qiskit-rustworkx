@@ -21,22 +21,16 @@ class TestMeshGraph(unittest.TestCase):
         self.assertEqual(len(graph), 20)
         self.assertEqual(len(graph.edges()), 380)
         for i in range(20):
-            ls = []
-            for j in range(19, -1, -1):
-                if i != j:
-                    ls.append((i, j, None))
+            ls = [(i, j, None) for j in range(19, -1, -1) if i != j]
             self.assertEqual(graph.out_edges(i), ls)
 
     def test_directed_mesh_graph_weights(self):
         graph = rustworkx.generators.directed_mesh_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 380)
         for i in range(20):
-            ls = []
-            for j in range(19, -1, -1):
-                if i != j:
-                    ls.append((i, j, None))
+            ls = [(i, j, None) for j in range(19, -1, -1) if i != j]
             self.assertEqual(graph.out_edges(i), ls)
 
     def test_mesh_directed_no_weights_or_num(self):
@@ -51,7 +45,7 @@ class TestMeshGraph(unittest.TestCase):
     def test_mesh_graph_weights(self):
         graph = rustworkx.generators.mesh_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 190)
 
     def test_mesh_no_weights_or_num(self):

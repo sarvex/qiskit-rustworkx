@@ -121,7 +121,7 @@ class TestMPLDraw(unittest.TestCase):
                     min_source_margin=100,
                     min_target_margin=100,
                 )
-                _save_images(fig, "test_node_shape_%s.png" % node_shape)
+                _save_images(fig, f"test_node_shape_{node_shape}.png")
 
     def test_alpha_iter(self):
         graph = retworkx.generators.grid_graph(4, 6)
@@ -154,15 +154,16 @@ class TestMPLDraw(unittest.TestCase):
             (6, 7, 3),
             (7, 4, 7),
         ]
-        labels = {}
-        labels[0] = r"$a$"
-        labels[1] = r"$b$"
-        labels[2] = r"$c$"
-        labels[3] = r"$d$"
-        labels[4] = r"$\alpha$"
-        labels[5] = r"$\beta$"
-        labels[6] = r"$\gamma$"
-        labels[7] = r"$\delta$"
+        labels = {
+            0: "$a$",
+            1: "$b$",
+            2: "$c$",
+            3: "$d$",
+            4: "$\alpha$",
+            5: "$\beta$",
+            6: "$\gamma$",
+            7: "$\delta$",
+        }
         graph.add_edges_from(edge_list)
         pos = retworkx.random_layout(graph)
         mpl_draw(

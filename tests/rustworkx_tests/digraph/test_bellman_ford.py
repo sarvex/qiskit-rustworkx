@@ -286,11 +286,10 @@ class TestBellmanFordDiGraph(unittest.TestCase):
         )
 
         cycle = rustworkx.find_negative_cycle(graph, edge_cost_fn=float)
-        cycle_weight = 0
-
-        for i in range(len(cycle) - 1):
-            cycle_weight += graph.get_edge_data(cycle[i], cycle[i + 1])
-
+        cycle_weight = sum(
+            graph.get_edge_data(cycle[i], cycle[i + 1])
+            for i in range(len(cycle) - 1)
+        )
         self.assertTrue(cycle_weight < 0)
 
     def test_find_negative_cycle_self_loop_cycle(self):
@@ -299,11 +298,10 @@ class TestBellmanFordDiGraph(unittest.TestCase):
         graph.add_edges_from([(0, 1, 1), (1, 0, 1), (0, 0, -1)])
 
         cycle = rustworkx.find_negative_cycle(graph, edge_cost_fn=float)
-        cycle_weight = 0
-
-        for i in range(len(cycle) - 1):
-            cycle_weight += graph.get_edge_data(cycle[i], cycle[i + 1])
-
+        cycle_weight = sum(
+            graph.get_edge_data(cycle[i], cycle[i + 1])
+            for i in range(len(cycle) - 1)
+        )
         self.assertTrue(cycle_weight < 0)
 
     def test_find_negative_cycle_no_cycle(self):

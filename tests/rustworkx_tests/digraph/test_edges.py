@@ -980,7 +980,7 @@ class TestEdgesMultigraphFalse(unittest.TestCase):
 
     def test_reverse_graph(self):
         graph = rustworkx.PyDiGraph()
-        graph.add_nodes_from([i for i in range(4)])
+        graph.add_nodes_from(list(range(4)))
         edge_list = [
             (0, 1, "a"),
             (1, 2, "b"),

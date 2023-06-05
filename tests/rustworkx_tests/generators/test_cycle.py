@@ -27,7 +27,7 @@ class TestCycleGraph(unittest.TestCase):
     def test_directed_cycle_graph_weights(self):
         graph = rustworkx.generators.directed_cycle_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 20)
         for i in range(19):
             self.assertEqual(graph.out_edges(i), [(i, i + 1, None)])
@@ -55,7 +55,7 @@ class TestCycleGraph(unittest.TestCase):
     def test_cycle_graph_weights(self):
         graph = rustworkx.generators.cycle_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 20)
 
     def test_cycle_no_weights_or_num(self):

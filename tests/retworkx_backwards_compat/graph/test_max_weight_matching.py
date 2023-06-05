@@ -23,7 +23,7 @@ import retworkx
 
 
 def match_dict_to_set(match):
-    return {(u, v) for (u, v) in set(map(frozenset, match.items()))}
+    return set(set(map(frozenset, match.items())))
 
 
 class TestMaxWeightMatching(testtools.TestCase):
@@ -46,15 +46,11 @@ class TestMaxWeightMatching(testtools.TestCase):
     def compare_rx_nx_sets(self, rx_graph, rx_matches, nx_matches, seed, nx_graph):
         def get_rx_weight(edge):
             weight = rx_graph.get_edge_data(*edge)
-            if weight is None:
-                return 1
-            return weight
+            return 1 if weight is None else weight
 
         def get_nx_weight(edge):
             weight = nx_graph.get_edge_data(*edge)
-            if not weight:
-                return 1
-            return weight["weight"]
+            return 1 if not weight else weight["weight"]
 
         not_match = False
         for (u, v) in rx_matches:
@@ -79,11 +75,11 @@ class TestMaxWeightMatching(testtools.TestCase):
         if not_match:
             self.assertTrue(
                 retworkx.is_matching(rx_graph, rx_matches),
-                "%s is not a valid matching" % rx_matches,
+                f"{rx_matches} is not a valid matching",
             )
             self.assertTrue(
                 retworkx.is_maximal_matching(rx_graph, rx_matches),
-                "%s is not a maximal matching" % rx_matches,
+                f"{rx_matches} is not a maximal matching",
             )
             self.assertEqual(
                 sum(map(get_rx_weight, rx_matches)),

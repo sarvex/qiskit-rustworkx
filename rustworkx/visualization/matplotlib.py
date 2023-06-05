@@ -203,17 +203,10 @@ def mpl_draw(graph, pos=None, ax=None, arrows=True, with_labels=False, **kwds):
             "rustworkx.visualization.mpl_draw(). You can install "
             "matplotlib with:\n'pip install matplotlib'"
         ) from e
-    if ax is None:
-        cf = plt.gcf()
-    else:
-        cf = ax.get_figure()
+    cf = plt.gcf() if ax is None else ax.get_figure()
     cf.set_facecolor("w")
     if ax is None:
-        if cf.axes:
-            ax = cf.gca()
-        else:
-            ax = cf.add_axes((0, 0, 1, 1))
-
+        ax = cf.gca() if cf.axes else cf.add_axes((0, 0, 1, 1))
     draw_graph(graph, pos=pos, ax=ax, arrows=arrows, with_labels=with_labels, **kwds)
     ax.set_axis_off()
     plt.draw_if_interactive()
@@ -320,12 +313,11 @@ def draw_graph(graph, pos=None, arrows=True, with_labels=False, **kwds):
 
     valid_kwds = valid_node_kwds | valid_edge_kwds | valid_label_kwds | valid_edge_label_kwds
 
-    if any([k not in valid_kwds for k in kwds]):
+    if any(k not in valid_kwds for k in kwds):
         invalid_args = ", ".join([k for k in kwds if k not in valid_kwds])
         raise ValueError(f"Received invalid argument(s): {invalid_args}")
 
-    label_fn = kwds.pop("labels", None)
-    if label_fn:
+    if label_fn := kwds.pop("labels", None):
         kwds["labels"] = {x: label_fn(graph[x]) for x in graph.node_indices()}
     edge_label_fn = kwds.pop("edge_labels", None)
     if edge_label_fn:
@@ -747,10 +739,7 @@ def draw_edges(
             arrow_color = arrow_colors[i % len(arrow_colors)]
 
         if np.iterable(width):
-            if len(width) == len(edge_pos):
-                line_width = width[i]
-            else:
-                line_width = width[i % len(width)]
+            line_width = width[i] if len(width) == len(edge_pos) else width[i % len(width)]
         else:
             line_width = width
 

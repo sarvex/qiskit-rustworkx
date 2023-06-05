@@ -268,7 +268,7 @@ class TestSubgraphIsomorphic(unittest.TestCase):
         graph = retworkx.PyGraph()
         dummy = graph.add_node(0)
 
-        graph.compose(temp, dict())
+        graph.compose(temp, {})
         graph.remove_node(dummy)
 
         second_graph = retworkx.generators.grid_graph(2, 2)

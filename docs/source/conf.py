@@ -136,30 +136,29 @@ if os.getenv("RETWORKX_LEGACY_DOCS", None) is not None:
 
 def _get_versions(app, config):
     context = config.html_context
-    start_version = (0, 8, 0)
     proc = subprocess.run(['git', 'describe', '--abbrev=0'],
                           capture_output=True)
     proc.check_returncode()
     current_version = proc.stdout.decode('utf8')
     current_version_info = current_version.split('.')
     if current_version_info[0] == '0':
+        start_version = (0, 8, 0)
         version_list = [
-            '0.%s' % x for x in range(start_version[1],
-                                      int(current_version_info[1]) + 1)]
+            f'0.{x}'
+            for x in range(start_version[1], int(current_version_info[1]) + 1)
+        ]
     else:
         #TODO: When 1.0.0 add code to handle 0.x version list
         version_list = []
-        pass
     context['version_list'] = version_list
     context['version_label'] = _get_version_label(current_version)
 
 
 def _get_version_label(current_version):
-    if not os.getenv('RETWORKX_DEV_DOCS', None):
-        current_version_info = current_version.split('.')
-        return ".".join(current_version_info[:-1])
-    else:
+    if os.getenv('RETWORKX_DEV_DOCS', None):
         return "Development"
+    current_version_info = current_version.split('.')
+    return ".".join(current_version_info[:-1])
 
 def avoid_duplicate_in_dispatch(app, obj, bound_method):
     if hasattr(obj, 'dispatch') and hasattr(obj, 'register') and obj.dispatch.__module__ == 'functools':

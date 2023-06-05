@@ -268,7 +268,7 @@ class TestSubgraphIsomorphic(unittest.TestCase):
         graph = rustworkx.PyGraph()
         dummy = graph.add_node(0)
 
-        graph.compose(temp, dict())
+        graph.compose(temp, {})
         graph.remove_node(dummy)
 
         second_graph = rustworkx.generators.grid_graph(2, 2)

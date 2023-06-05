@@ -93,16 +93,10 @@ class TestCollectBicolorRuns(unittest.TestCase):
         dag.add_edge(cz_gate, q1_list[1], "q1")
 
         def filter_function(node):
-            if node in ["cx", "cz"]:
-                return True
-            else:
-                return None
+            return True if node in ["cx", "cz"] else None
 
         def color_function(node):
-            if "q" in node:
-                return int(node[1:])
-            else:
-                return None
+            return int(node[1:]) if "q" in node else None
 
         self.assertEqual(
             [["cx", "cz"]],
@@ -182,16 +176,10 @@ class TestCollectBicolorRuns(unittest.TestCase):
         dag.add_edge(y_gate, q1_list[1], "q1")
 
         def filter_function(node):
-            if node in ["cx", "cz", "h", "y"]:
-                return True
-            else:
-                return None
+            return True if node in ["cx", "cz", "h", "y"] else None
 
         def color_function(node):
-            if "q" in node:
-                return int(node[1:])
-            else:
-                return None
+            return int(node[1:]) if "q" in node else None
 
         self.assertEqual(
             [["h", "cx", "cz", "y"]],
@@ -265,10 +253,7 @@ class TestCollectBicolorRuns(unittest.TestCase):
                 return None
 
         def color_function(node):
-            if "q" in node:
-                return int(node[1:])
-            else:
-                return None
+            return int(node[1:]) if "q" in node else None
 
         self.assertEqual(
             [["cx"], ["cz"]],
@@ -333,16 +318,10 @@ class TestCollectBicolorRuns(unittest.TestCase):
         dag.add_edge(rz_gate, c0_list[1], "c0")
 
         def filter_function(node):
-            if node == "barrier":
-                return False
-            else:
-                return None
+            return False if node == "barrier" else None
 
         def color_function(node):
-            if "q" in node:
-                return int(node[1:])
-            else:
-                return None
+            return int(node[1:]) if "q" in node else None
 
         self.assertEqual(
             [],

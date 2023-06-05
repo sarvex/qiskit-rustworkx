@@ -56,9 +56,7 @@ class TestCoreNumber(unittest.TestCase):
             (12, 18),
         ]
 
-        example_core = {}
-        for i in range(8):
-            example_core[i] = 3
+        example_core = {i: 3 for i in range(8)}
         for i in range(8, 16):
             example_core[i] = 2
         for i in range(16, 20):

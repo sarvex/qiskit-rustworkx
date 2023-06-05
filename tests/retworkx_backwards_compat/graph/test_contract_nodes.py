@@ -86,7 +86,7 @@ class TestContractNodes(unittest.TestCase):
                 UndirectedEdge((node_c, node_m)),
                 UndirectedEdge((node_b, node_m)),
             },
-            set(UndirectedEdge(e) for e in dag.edge_list()),
+            {UndirectedEdge(e) for e in dag.edge_list()},
         )
 
     def test_multiple_paths_would_cycle(self):
@@ -127,7 +127,7 @@ class TestContractNodes(unittest.TestCase):
                 UndirectedEdge((node_b, node_e)),
                 UndirectedEdge((node_b, node_m)),
             },
-            set(UndirectedEdge(e) for e in dag.edge_list()),
+            {UndirectedEdge(e) for e in dag.edge_list()},
         )
 
     def test_replace_node_no_neighbors(self):
@@ -164,7 +164,7 @@ class TestContractNodes(unittest.TestCase):
                 UndirectedEdge((node_a, node_m, 1)),
                 UndirectedEdge((node_a, node_m, 2)),
             },
-            set(UndirectedEdge(e) for e in dag.weighted_edge_list()),
+            {UndirectedEdge(e) for e in dag.weighted_edge_list()},
         )
 
 

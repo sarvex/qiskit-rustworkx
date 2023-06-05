@@ -92,7 +92,7 @@ class TestBFSSuccessorsComparisons(unittest.TestCase):
         self.dag.add_child(self.node_a, "c", "New edge")
         self.dag.add_child(self.node_b, "d", "New edge to d")
         successors = rustworkx.bfs_successors(self.dag, 0)
-        slice_return = successors[0:3:2]
+        slice_return = successors[:3:2]
         self.assertEqual([("a", ["c", "b"])], slice_return)
 
 
@@ -158,9 +158,9 @@ class TestNodeIndicesComparisons(unittest.TestCase):
         self.dag.add_node("new")
         self.dag.add_node("fun")
         nodes = self.dag.node_indices()
-        slice_return = nodes[0:3:2]
+        slice_return = nodes[:3:2]
         self.assertEqual([0, 2], slice_return)
-        self.assertEqual(nodes[0:-1], [0, 1, 2])
+        self.assertEqual(nodes[:-1], [0, 1, 2])
 
     def test_slices_negatives(self):
         graph = rustworkx.PyGraph()
@@ -349,7 +349,7 @@ class TestEdgeIndicesComparisons(unittest.TestCase):
     def test_slices(self):
         self.dag.add_edge(0, 1, None)
         edges = self.dag.edge_indices()
-        slice_return = edges[0:-1]
+        slice_return = edges[:-1]
         self.assertEqual([0, 1], slice_return)
 
 
@@ -413,7 +413,7 @@ class TestEdgeListComparisons(unittest.TestCase):
         self.dag.add_edge(0, 1, None)
         self.dag.add_edge(0, 1, None)
         edges = self.dag.edge_list()
-        slice_return = edges[0:3:2]
+        slice_return = edges[:3:2]
         self.assertEqual([(0, 1), (0, 1)], slice_return)
 
     @staticmethod
@@ -492,7 +492,7 @@ class TestWeightedEdgeListComparisons(unittest.TestCase):
         self.dag.add_edge(0, 1, None)
         self.dag.add_edge(0, 1, None)
         edges = self.dag.weighted_edge_list()
-        slice_return = edges[0:3:2]
+        slice_return = edges[:3:2]
         self.assertEqual([(0, 1, "Edgy"), (0, 1, None)], slice_return)
 
     def test_numpy_conversion(self):
@@ -1461,20 +1461,20 @@ class TestProductNodeMap(unittest.TestCase):
 
     def test_keys(self):
         keys = self.node_map.keys()
-        self.assertEqual(set([(0, 0), (1, 0)]), set(keys))
+        self.assertEqual({(0, 0), (1, 0)}, set(keys))
 
     def test_values(self):
         values = self.node_map.values()
-        self.assertEqual(set([0, 1]), set(values))
+        self.assertEqual({0, 1}, set(values))
 
     def test_items(self):
         items = self.node_map.items()
-        self.assertEqual(set([((0, 0), 0), ((1, 0), 1)]), set(items))
+        self.assertEqual({((0, 0), 0), ((1, 0), 1)}, set(items))
 
     def test_iter(self):
         mapping_iter = iter(self.node_map)
         output = set(mapping_iter)
-        self.assertEqual(output, set([(0, 0), (1, 0)]))
+        self.assertEqual(output, {(0, 0), (1, 0)})
 
     def test_contains(self):
         self.assertIn((0, 0), self.node_map)
@@ -1551,20 +1551,20 @@ class TestBiconnectedComponentsMap(unittest.TestCase):
 
     def test_keys(self):
         keys = self.bicon_map.keys()
-        self.assertEqual(set([(0, 1), (1, 2)]), set(keys))
+        self.assertEqual({(0, 1), (1, 2)}, set(keys))
 
     def test_values(self):
         values = self.bicon_map.values()
-        self.assertEqual(set([0, 1]), set(values))
+        self.assertEqual({0, 1}, set(values))
 
     def test_items(self):
         items = self.bicon_map.items()
-        self.assertEqual(set([((0, 1), 1), ((1, 2), 0)]), set(items))
+        self.assertEqual({((0, 1), 1), ((1, 2), 0)}, set(items))
 
     def test_iter(self):
         mapping_iter = iter(self.bicon_map)
         output = set(mapping_iter)
-        self.assertEqual(output, set([(0, 1), (1, 2)]))
+        self.assertEqual(output, {(0, 1), (1, 2)})
 
     def test_contains(self):
         self.assertIn((0, 1), self.bicon_map)

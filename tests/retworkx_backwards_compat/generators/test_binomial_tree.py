@@ -51,14 +51,14 @@ class TestBinomialTreeGraph(unittest.TestCase):
         graph = retworkx.generators.binomial_tree_graph(2, weights=list(range(4)))
         expected_edges = [(0, 1), (2, 3), (0, 2)]
         self.assertEqual(len(graph), 4)
-        self.assertEqual([x for x in range(4)], graph.nodes())
+        self.assertEqual(list(range(4)), graph.nodes())
         self.assertEqual(len(graph.edges()), 3)
         self.assertEqual(list(graph.edge_list()), expected_edges)
 
     def test_binomial_tree_graph_weight_less_nodes(self):
         graph = retworkx.generators.binomial_tree_graph(2, weights=list(range(2)))
         self.assertEqual(len(graph), 4)
-        expected_weights = [x for x in range(2)]
+        expected_weights = list(range(2))
         expected_weights.extend([None, None])
         self.assertEqual(expected_weights, graph.nodes())
         self.assertEqual(len(graph.edges()), 3)
@@ -106,13 +106,13 @@ class TestBinomialTreeGraph(unittest.TestCase):
     def test_directed_binomial_tree_graph_weights(self):
         graph = retworkx.generators.directed_binomial_tree_graph(2, weights=list(range(4)))
         self.assertEqual(len(graph), 4)
-        self.assertEqual([x for x in range(4)], graph.nodes())
+        self.assertEqual(list(range(4)), graph.nodes())
         self.assertEqual(len(graph.edges()), 3)
 
     def test_directed_binomial_tree_graph_weight_less_nodes(self):
         graph = retworkx.generators.directed_binomial_tree_graph(2, weights=list(range(2)))
         self.assertEqual(len(graph), 4)
-        expected_weights = [x for x in range(2)]
+        expected_weights = list(range(2))
         expected_weights.extend([None, None])
         self.assertEqual(expected_weights, graph.nodes())
         self.assertEqual(len(graph.edges()), 3)

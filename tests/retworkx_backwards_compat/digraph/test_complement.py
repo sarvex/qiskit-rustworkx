@@ -34,7 +34,7 @@ class TestComplement(unittest.TestCase):
     def test_empty_directed(self):
         N = 5
         graph = retworkx.PyDiGraph()
-        graph.add_nodes_from([i for i in range(N)])
+        graph.add_nodes_from(list(range(N)))
 
         expected_graph = retworkx.PyDiGraph()
         expected_graph.extend_from_edge_list([(i, j) for i in range(N) for j in range(N) if i != j])

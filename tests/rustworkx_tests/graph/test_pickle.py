@@ -19,7 +19,7 @@ import rustworkx as rx
 class TestPickleGraph(unittest.TestCase):
     def test_noweight_graph(self):
         g = rx.PyGraph()
-        for i in range(4):
+        for _ in range(4):
             g.add_node(None)
         g.add_edges_from_no_data([(0, 1), (1, 2), (3, 0), (3, 1)])
         g.remove_node(0)

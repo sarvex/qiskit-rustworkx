@@ -428,14 +428,13 @@ class TestBfsPredecessors(unittest.TestCase):
 
     def test_breadth_first(self):
         dag = rustworkx.PyDAG()
-        layers = []
         parent_cnt = 8
-        layers.append([dag.add_node({"layer1": i}) for i in range(parent_cnt)])
+        layers = [[dag.add_node({"layer1": i}) for i in range(parent_cnt)]]
         child_cnt = parent_cnt / 2
         layers.append(
             [
                 dag.add_child(parent1, {"layer2": i}, {})
-                for i, parent1 in enumerate(layers[-1][0::2])
+                for i, parent1 in enumerate(layers[-1][::2])
             ]
         )
         for parent2, child in zip(layers[-2][1::2], layers[-1]):
@@ -446,7 +445,7 @@ class TestBfsPredecessors(unittest.TestCase):
         layers.append(
             [
                 dag.add_child(parent1, {"layer3": i}, {})
-                for i, parent1 in enumerate(layers[-1][0::2])
+                for i, parent1 in enumerate(layers[-1][::2])
             ]
         )
         for parent2, child in zip(layers[-2][1::2], layers[-1]):
@@ -457,7 +456,7 @@ class TestBfsPredecessors(unittest.TestCase):
         layers.append(
             [
                 dag.add_child(parent1, {"layer4": i}, {})
-                for i, parent1 in enumerate(layers[-1][0::2])
+                for i, parent1 in enumerate(layers[-1][::2])
             ]
         )
         for parent2, child in zip(layers[-2][1::2], layers[-1]):

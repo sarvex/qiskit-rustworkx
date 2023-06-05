@@ -32,10 +32,13 @@ class TestDijkstraSearch(unittest.TestCase):
         )
 
     def test_digraph_dijkstra_tree_edges(self):
+
+
+
         class DijkstraTreeEdgesRecorder(rustworkx.visit.DijkstraVisitor):
             def __init__(self):
                 self.edges = []
-                self.parents = dict()
+                self.parents = {}
 
             def discover_vertex(self, v, _):
                 u = self.parents.get(v, None)
@@ -45,16 +48,20 @@ class TestDijkstraSearch(unittest.TestCase):
             def edge_relaxed(self, edge):
                 u, v, _ = edge
                 self.parents[v] = u
+
 
         vis = DijkstraTreeEdgesRecorder()
         rustworkx.digraph_dijkstra_search(self.graph, [0], float, vis)
         self.assertEqual(vis.edges, [(0, 1), (0, 2), (2, 6), (2, 5), (5, 3)])
 
     def test_digraph_dijkstra_tree_edges_no_starting_point(self):
+
+
+
         class DijkstraTreeEdgesRecorder(rustworkx.visit.DijkstraVisitor):
             def __init__(self):
                 self.edges = []
-                self.parents = dict()
+                self.parents = {}
 
             def discover_vertex(self, v, _):
                 u = self.parents.get(v, None)
@@ -64,6 +71,7 @@ class TestDijkstraSearch(unittest.TestCase):
             def edge_relaxed(self, edge):
                 u, v, _ = edge
                 self.parents[v] = u
+
 
         vis = DijkstraTreeEdgesRecorder()
         rustworkx.digraph_dijkstra_search(self.graph, None, float, vis)

@@ -33,7 +33,7 @@ class TestStarGraph(unittest.TestCase):
     def test_directed_star_graph_weights(self):
         graph = retworkx.generators.directed_star_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 19)
         expected_edges = sorted([(0, i, None) for i in range(1, 20)])
         self.assertEqual(sorted(graph.out_edges(0)), expected_edges)
@@ -75,7 +75,7 @@ class TestStarGraph(unittest.TestCase):
     def test_star_directed_graph_weights_inward(self):
         graph = retworkx.generators.directed_star_graph(weights=list(range(20)), inward=True)
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 19)
         expected_edges = [(i, 0, None) for i in range(1, 20)]
         self.assertEqual(sorted(graph.in_edges(0)), sorted(expected_edges))
@@ -92,7 +92,7 @@ class TestStarGraph(unittest.TestCase):
     def test_star_graph_weights(self):
         graph = retworkx.generators.star_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 19)
 
     def test_star_no_weights_or_num(self):

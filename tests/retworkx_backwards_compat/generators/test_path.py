@@ -27,7 +27,7 @@ class TestPathGraph(unittest.TestCase):
     def test_directed_path_graph_weights(self):
         graph = retworkx.generators.directed_path_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 19)
         for i in range(19):
             self.assertEqual(graph.out_edges(i), [(i, i + 1, None)])
@@ -55,7 +55,7 @@ class TestPathGraph(unittest.TestCase):
     def test_path_graph_weights(self):
         graph = retworkx.generators.path_graph(weights=list(range(20)))
         self.assertEqual(len(graph), 20)
-        self.assertEqual([x for x in range(20)], graph.nodes())
+        self.assertEqual(list(range(20)), graph.nodes())
         self.assertEqual(len(graph.edges()), 19)
 
     def test_path_no_weights_or_num(self):
